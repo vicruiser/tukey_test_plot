@@ -236,8 +236,9 @@ library(rlist)
    # Each data frame holds the following in formation: 
    #    - sig.=asterisks 
    #    - xmed=place to set the asterirsks, in the halfway between two compared groups
-   #    - ymax= max position of bar + position of erro bar, x1=x,x2=xend,y1=y,y2=yend are coordenates for geom_segment())
-   #
+   #    - ymax= max position of bar + se, 
+   #    - x1=x,x2=xend,y1=y,y2=yend are coordenates for geom_segment())
+ 
    
    
    
@@ -252,7 +253,12 @@ library(rlist)
      }
     
    result <- list(data_melt=data_melt,names=names,aov=aov,summary.aov=summary(aov),tukey_groups=tukey_groups,
-   tukey_letters=df_tukey_letters,stats=stats,stats_groups=stats_data,combinations=df.comb,asterisks=asterisks,geom.path=df_path)
+   tukey_letters=df_tukey_letters,stats=stats,stats_groups=stats_data,combinations=df.comb,asterisks=asterisks,
+   geom.path=df_path)
+   
+  #    - tukey_letters -> information for geom_text() 
+  #    - geom.path -> information for geom_segment()
+  
    return(result) 
   } 
      
