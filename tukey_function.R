@@ -38,6 +38,16 @@ library(rlist)
 
  tukey.plot.significance<-function(data)
   {
+  
+   library(ggplot2)
+   library(grid)
+   library(fBasics)
+   library(tidyr)
+   library(reshape)
+   library(agricolae)
+   library(Rmisc)
+   library(gdata)
+   library(rlist)
    ##Convert 0 values to NA values
    data[data == 0] <- NA
    data_melt<- melt(data)   
@@ -187,19 +197,21 @@ library(rlist)
        l<-l+1
      }
      
+   asterisks1<-asterisks
+     
    i<-1
    for(i in 1:length(asterisks))
    {
      if(nrow(asterisks[[i]])==0)
      {
-       asterisks[[i]]<-NULL
+       asterisks1[[i]]<-NULL
      }
    }
   
   
   ## To manipulate the resultant list (asterisks) we're going to change the name to "path". This data will be 
   ## used for geom_segment() in ggplot 
-   path<-asterisks  
+   path<-asterisks1  
    
    for(i in 1:length(path))
     {
@@ -236,9 +248,8 @@ library(rlist)
    # Each data frame holds the following in formation: 
    #    - sig.=asterisks 
    #    - xmed=place to set the asterirsks, in the halfway between two compared groups
-   #    - ymax= max position of bar + se, 
-   #    - x1=x,x2=xend,y1=y,y2=yend are coordenates for geom_segment())
- 
+   #    - ymax= max position of bar + position of erro bar, x1=x,x2=xend,y1=y,y2=yend are coordenates for geom_segment())
+   #
    
    
    
@@ -253,15 +264,15 @@ library(rlist)
      }
     
    result <- list(data_melt=data_melt,names=names,aov=aov,summary.aov=summary(aov),tukey_groups=tukey_groups,
-   tukey_letters=df_tukey_letters,stats=stats,stats_groups=stats_data,combinations=df.comb,asterisks=asterisks,
-   geom.path=df_path)
-   
-  #    - tukey_letters -> information for geom_text() 
-  #    - geom.path -> information for geom_segment()
-  
+   tukey_letters=df_tukey_letters,stats=stats,stats_groups=stats_data,combinations=df.comb,asterisks=asterisks,geom.path=df_path)
    return(result) 
   } 
      
+ 
+ 
+ ##################################################################################################
+ 
+ save("tukey.plot.significance", file="myFunction.Rdata")
  
  
  ##################################################################################################
