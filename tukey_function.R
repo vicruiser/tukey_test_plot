@@ -211,10 +211,14 @@ library(rlist)
   
   ## To manipulate the resultant list (asterisks) we're going to change the name to "path". This data will be 
   ## used for geom_segment() in ggplot 
-   path<-asterisks1  
-   
+  path<-asterisks1  
+   if(length(path)!=0)
+   {
+    
    for(i in 1:length(path))
     {
+      if(nrow(path[[i]])!=0)
+      {
        k<-1
        x1<-numeric()
        x2<-numeric()
@@ -242,9 +246,11 @@ library(rlist)
        ymax<-ymax+max(se)
        df4<-data.frame(xmed,ymax)
        path[[i]]<-cbind(path[[i]],df4)
+    }   else{ path<-c("no value asigned")}
     }
-  
-   #Resultant list has different data frames depending on the number of conditions. 
+     
+    
+       #Resultant list has different data frames depending on the number of conditions. 
    # Each data frame holds the following in formation: 
    #    - sig.=asterisks 
    #    - xmed=place to set the asterirsks, in the halfway between two compared groups
@@ -261,7 +267,9 @@ library(rlist)
      for(i in 1:length(path))
      { 
       df_path<-rbind(df_path,path[[i]])
-     }
+     } 
+    
+   } else{path<-c("no value asigned")}
     
    result <- list(data_melt=data_melt,names=names,aov=aov,summary.aov=summary(aov),tukey_groups=tukey_groups,
    tukey_letters=df_tukey_letters,stats=stats,stats_groups=stats_data,combinations=df.comb,asterisks=asterisks,geom.path=df_path)
