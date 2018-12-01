@@ -7,7 +7,7 @@ load("tukeySignificanceLettersFunction.Rdata")
 ###################################################################################
 # Load data example and apply function
 ###################################################################################
-data_example <- read.table("./data_example.csv", sep =";", header=T)
+data_example <- read.table("./data_example.csv", sep =",", header=T)
 
 significance<-tukey_plot_significance(data_example) 
 
