@@ -23,7 +23,7 @@ tukey_plot_significance<-function(data)
   
   ##Convert 0 values to NA values
   data[data == 0] <- NA
-  data_melted <- melt(data)   
+  data_melted <- reshape2::melt(data)   
   colnames(data_melted)[1] = 'X'
   stats <- summarySE(data_melted, measurevar="value", groupvars=c("X","variable"), na.rm=TRUE)
   names(stats)[1]<-"group"
